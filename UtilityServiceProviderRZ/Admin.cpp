@@ -1,7 +1,7 @@
 
 #include "Admin.h"
 #include "Database.h"
-#include "bills.h"
+#include "Bills.h"
 #include "User.h"
 #include <iostream>
 #include <fstream>
