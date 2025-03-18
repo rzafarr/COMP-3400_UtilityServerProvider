@@ -11,7 +11,7 @@ Project Scope
 
 COMP 3400
 
-Members: Roshna Zafar, Yosra El Baser, Maha Abu-Draz
+Members: Roshna, Yosra, Maha
 
 Installation
 - Use g++ to compile only the database-related files:
