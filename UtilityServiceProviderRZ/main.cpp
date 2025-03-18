@@ -1,7 +1,7 @@
 #include "Admin.h"
 #include "Auth.h"
 #include "Database.h"
-#include "bills.h"
+#include "Bills.h"
 #include "servicesProvider.h"
 #include "Log.h"
 #include <iostream>
