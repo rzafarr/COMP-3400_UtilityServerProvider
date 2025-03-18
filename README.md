@@ -14,7 +14,7 @@ COMP 3400
 Members: Roshna, Yosra, Maha
 
 Installation
-- Use g++ to compile only the database-related files:
+- Use g++ to compile the files:
   - **g++ -std=c++23 -o main main.cpp Admin.cpp Auth.cpp Database.cpp User.cpp Log.cpp bills.cpp servicesProvider.cpp -I.**
   - **./main**
  
