@@ -1,106 +1,116 @@
-#include <fstream> //read and write
-#include <iostream> 
-#include <string> 
+#include <iostream>
+#include <string>
 #include <vector>
-
+#include <list>
+#include <map>
+#pragma once
 
 using namespace std;
 
-/*
-Class: Utility class
-Purpose: 
-    -To hold and create infromation about the company.This includes
-        -Name of the company
-        -Contact info 
-        -Types of services 
-Output:
-    -creating a utility company object
-*/
-class Utility {
+class Utility{
     private:
-    //name of the utiltiy company
-    string utilityName; 
-    //utility company id
-    int utilityID; 
-    //vector of services: Internet, Gas, Hydro
-    vector<string>servicesOffered;
+    //attributes of a utility company contact information
+    string name;
+    string address;
+    string phone;
+
+    //attributes of a utility company service type: hydro,internet, gas
+    vector<string>serviceType;
 
     public:
-    //Constructor that creates a utility company object
-    Utility(string name) : utilityName(name){};
+    //create a constructor that creates a utility company object
+    Utility (string name, string address, string phoneNum){
+        this->name = name;
+        this->address = address;
+        this->phone = phoneNum;
+    }
 
+    //method that view utility company info:
+    void viewCompanyInfo(){
+        cout << "Name:\t" << name;
+        cout << "Address:\t" << address;
+        cout << "Phone Number:\t" << phone;
+    }
 
-    static Utility createCompany(){
-        string nameOfUtility;
-        cout<<"Enter the name of your utility company:\n";
-        cin >> nameOfUtility; 
+    //method that returns the name of the company
+    string getName(){
+        return name;
+    }
 
-        //create object:
-        Utility newCompany(nameOfUtility);
-
-        //call the selectServiceOptions method to display the types of services utility companies can offer
-        newCompany.selectServiceOptions();
+    //method that allows the company to add service:
+    void addServiceType(){
+        cout << "\nSelect a service:\n";
+        cout << "Enter 1 for Hydro services\nEnter 2 for Internet services\nEnter 3 for Gas services\nEnter 0 to go back to main menu\n";
+        int selectedService;
+        cin >> selectedService;
+        cin.ignore();
         int value;
         //allow the user to select more than one service
         do{
-            cout<<"Enter a value:\t";
+            cout<<"Enter a value to select a service:\n";
             cin >> value;
 
-            if (value == 1){
-                newCompany.addServices("Natural Gas");
-                cout<<"Added 1\n";
+            //loop through the serviceType array to check if the service select 
+            //does not exist:
+            bool dne = false;
+            for(const auto& sType:serviceType){
+                //checks if natural gas existed as a service
+                if (value == 1 && sType == "Natural Gas"){
+                    cout<<"Natural Gas has been already added\n";
+                    dne = true;
+                } 
+                //check if hydro existed as a service
+                else if (value ==2 && sType == "Hydro"){
+                    cout<<"Hydro has been already added\n";
+                    dne = true;
+                }
+                //check if internet existed as a service
+                else if (value == 3 && sType == "Internet"){
+                    cout << "Internet has been already added\n";
+                    dne = true;
+                //none of the of the services exists
+                }else{
+                    dne = false;
+                }
+        
             }
-            else if (value == 2){
-                newCompany.addServices("Hydro");
-                cout<<"Added 2\n";
+            //if the selected service does not exist then add
+            if(dne == false){
+                //add natural gas
+                if (value == 1){
+                    serviceType.push_back("Natural Gas");
+                    cout<<"Added Natural Gas\n";
+                }
+                //add hydro
+                else if (value == 2){
+                    serviceType.push_back("Hydro");
+                    cout<<"Added Hydro\n";
+                }
+                //add internet
+                else if(value == 3){
+                    serviceType.push_back("Internet");
+                    cout<<"Added Internet\n";
+                }
+                //exit 
+                else if (value == 0){
+                    cout <<"Heading back to main menu...\n";
+                }
+                //invalid input
+                else{
+                    cout << "Please enter a valid input\n";
+                }
             }
-            else if(value == 3){
-                newCompany.addServices("Internet");
-                cout<<"Added 3\n";
-            }
-            else{
-                cout << "Please enter a valid input\n";
-            }
-        }while(value !=0);
-
-        return newCompany;
-      
+        //loop to allow the company to add as much service until they enter 0
+        }while(value !=0);    
     }
-    //Method: shows what types of services can utility company offers
-    void selectServiceOptions(){
-        cout<<"Service Options:\n";
-        cout<<"Enter 1: Natural Gas\nEnter 2:Internet Service\nEnter 3:Hydro\nEnter 0: To end selection\n";
-    }
 
-    //Method: adds a service to company 
-    void addServices(const string& service){
-        //loop through the current services and check if the "new service" already exists or not
-        for(const auto& str : servicesOffered){
-           if(str == service){
-               return;
-           }
+    //method to view the company service type:
+    void viewServiceType(){
+        cout<<"Company Service:\t" << name << "\n";
+        //loop through the vector of service (assuming that a company can offer more than one service)
+        for(const auto& s:serviceType){
+            cout<<s<<endl;
         }
-        //add this to vector of services 
-        servicesOffered.push_back(service);
-
     }
 
-    void displayServices(){
-        cout<<"Services Offered by "<<utilityName<<"\n";
-        //check if the service vector is empty
-        if(servicesOffered.empty()){
-            //display that there are no services 
-            cout<<"There are no services available\n";
-        }
-        //if vector is not empty show the services
-        else{
-            for(const auto& str : servicesOffered){
-                cout<<"Service: "<<str<<"\n";
-            }
-        }
-    }
 };
-
-
-
-
