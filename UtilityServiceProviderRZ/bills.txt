@@ -1,0 +1,4 @@
+1001 101 Electricity 120.5 1
+1002 102 Water 36.24 1
+1003 103 Internet 89.99 0
+1000 106 Gas_Internet 601.99 1
