@@ -1,4 +1,4 @@
-#include "bills.h"
+#include "Bills.h"
 #include <iostream>
 #include <fstream>
 
