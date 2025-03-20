@@ -1,3 +1,4 @@
+//Tacks system activity, logs events like User logins, Bill payment, Admin Changes
 #include "Log.h"
 #include <fstream>
 #include <iostream>
