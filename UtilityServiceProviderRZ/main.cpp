@@ -1,3 +1,7 @@
+//main program
+//controls the main menu and program execution, logs in, create accounts, and admin features.
+//controls other functions based on user choices 
+
 #include "Admin.h"
 #include "Auth.h"
 #include "Database.h"
