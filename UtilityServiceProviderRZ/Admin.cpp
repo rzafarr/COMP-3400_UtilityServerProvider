@@ -1,4 +1,4 @@
-
+// Gives control over to user management, allows admin to view all users, reset user PINs, manage paid/unpaid bills, apply bill discounts, add/remove services for users.
 #include "Admin.h"
 #include "Database.h"
 #include "Bills.h"
