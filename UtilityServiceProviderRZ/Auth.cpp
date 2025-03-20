@@ -1,3 +1,4 @@
+//Controls users and admins log in correctly.
 #include "Auth.h"
 #include "Log.h"
 
