@@ -1,3 +1,5 @@
+//Handles service providers (Enwin, Bell, etc), helps maintain utility service details
+
 #include "servicesProvider.h"
 #include <iostream>
 
