@@ -1,3 +1,5 @@
+//Manges billing records and payments.
+
 #include "Bills.h"
 #include <iostream>
 #include <fstream>
