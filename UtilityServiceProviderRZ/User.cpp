@@ -1,4 +1,5 @@
 //Defines the users class, manages customer accounts
+
 #include "User.h"
 #include <iostream>
 
