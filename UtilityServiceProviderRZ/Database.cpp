@@ -1,3 +1,9 @@
+//stores and retrieves users, bills, and logs from text files.
+//loads user data from users.txt
+//saves updated user data
+//reads billing record from bill.txt
+//saves billing record
+
 #include "Database.h"
 #include <fstream>
 #include <iostream>
