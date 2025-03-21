@@ -1,12 +1,11 @@
 # COMP-3400_UtilityServerProvider
 
-Project: Utility Server Provider
+**Project: Utility Server Provider**
 
-Description: This project is designed to manage utility service providers and customer billing records. It keeps track of electricity, gas, water, internet, and mobile services while ensuring accurate billing, overdue payments, and service management.
+**Description:** This project is designed to manage utility service providers and customer billing records. It keeps track of electricity, gas, water, internet, and mobile services while ensuring accurate billing, overdue payments, and service management.
 
 
-Project Scope
-
+**Project Scope**
 
 - 10 Utility Providers
 - 100 Customers
@@ -17,12 +16,19 @@ COMP 3400
 
 Members: Roshna, Yosra, Maha
 
-Installation
+**Installation**
 - Use g++ to compile the files:
   - **g++ -std=c++23 -o main main.cpp Admin.cpp Auth.cpp Database.cpp User.cpp Log.cpp Bills.cpp servicesProvider.cpp -I.**
   - **./main**
- 
+
 - Clone the Reposity
    - git clone https://github.com/rzafarr/COMP-3400_UtilityServerProvider.git
    - cd COMP-3400_UtilityServerProvider
-  
+
+**Resources**
+ The following resources were utilized for this project:
+ -  cppreference.com
+ -  cplusplus.com
+ -  Textbook
+ -  Lecture Notes
+ -  Assignments 
