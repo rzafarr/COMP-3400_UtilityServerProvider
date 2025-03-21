@@ -17,6 +17,7 @@ COMP 3400
 Members: Roshna, Yosra, Maha
 
 **Installation**
+
 - Use g++ to compile the files:
   - **g++ -std=c++23 -o main main.cpp Admin.cpp Auth.cpp Database.cpp User.cpp Log.cpp Bills.cpp servicesProvider.cpp -I.**
   - **./main**
@@ -26,6 +27,7 @@ Members: Roshna, Yosra, Maha
    - cd COMP-3400_UtilityServerProvider
 
 **Resources**
+
  The following resources were utilized for this project:
  -  cppreference.com
  -  cplusplus.com
