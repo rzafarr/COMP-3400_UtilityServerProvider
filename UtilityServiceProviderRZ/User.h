@@ -10,9 +10,12 @@ protected:
     std::string address;
     std::string serviceType;
     std::string pin;
+    int failedAttempts = 0;
+    bool isLocked = false;
 
 public:
     User(int id, std::string name, std::string address, std::string serviceType, std::string pin);
+
     
     int getUserID() const;
     std::string getName() const;
@@ -25,6 +28,15 @@ public:
     bool verifyPin(const std::string& enteredPin) const;
 
     void displayUser() const;
+    int getFailedAttempts() const;
+    void incrementFailedAttempts();
+    void resetFailedAttempts();
+    bool getIsLocked() const;
+    void lockAccount();
+    void unlockAccount();
+    bool saveToDatabase(const std::string& dbPath);
+    bool loadFromDatabase(int id, const std::string& dbPath);
+
 };
 
 #endif // USER_H

@@ -26,9 +26,12 @@ public:
 
 class BillingSystem {
 public:
-    static void generateBill(int userID, const std::string& serviceType, double amount);
+    static bool generateBill(int userID, const std::string& serviceType, double amount);
     static void displayUserBills(int userID);
     static void payBill(int billID);
+    static void applyDiscount(int billID, double discountPercent);
+    static void deleteZeroAmountBills();
+
 };
 
 #endif // BILLS_H
