@@ -1,6 +1,6 @@
-# COMP-3400_UtilityServerProvider
+# 💻 COMP-3400_UtilityServerProvider
 
-**Project: Utility Server Provider**
+# **Project: 🏢 Utility Server Provider**
 
 **Description:** This project is designed to manage utility service providers and customer billing records. It keeps track of electricity, gas, water, internet, and mobile services while ensuring accurate billing, overdue payments, and service management.
 
