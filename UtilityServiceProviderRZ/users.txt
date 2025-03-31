@@ -1,4 +1,0 @@
-101 JohnDoe 123_Main_St Electricity 5678
-102 JaneDoe 456_Oak_St Water_Gas_Internet_Hydro_Electricity 5678
-106 Yosra_El_Baser 3498_Pine_Str_East Gas_Internet 9876
-192 Maha_Abu-Draz 768_EntryRoadWest_ON Internet_Gas_Water 0000
