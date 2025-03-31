@@ -32,7 +32,7 @@ Members: Roshna, Yosra, Maha
  -  cppreference.com
  -  cplusplus.com
  -  SQLITE3 Downloaded as zip using: https://www.sqlite.org/download.html
- -    sqlite-amalgamation-3490100.zip
+       -    sqlite-amalgamation-3490100.zip
  -  Textbook
  -  Lecture Notes
  -  Assignments 
