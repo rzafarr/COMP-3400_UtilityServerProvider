@@ -68,7 +68,7 @@ void adminLogin() {
     std::cin >> password;
 
     if (username == "admin" && password == "admin123") {
-        std::cout << "Login Duccessful.\n";
+        std::cout << "Login Successful.\n";
         Log::record("Admin Logged IN.");
         adminDashboard();
     } else {
