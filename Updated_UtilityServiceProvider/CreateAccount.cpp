@@ -8,6 +8,8 @@
 #include <iomanip>
 #include <sqlite3.h>
 
+using namespace std; 
+
 double getServiceRate(const std::string& serviceName) {
     sqlite3* db;
     sqlite3_open("providers.db", &db);
@@ -29,8 +31,9 @@ double getServiceRate(const std::string& serviceName) {
 
 void createNewAccount() {
     int userID;
-    std::string name, address, pin, serviceType = "";
+    std::string name, address, pin, serviceType = "",sID;
     std::vector<std::string> selectedServices;
+    std::vector<std::string> selectedProviderIDs;
 
     sqlite3* db;
     sqlite3_open("users.db", &db);
@@ -84,12 +87,16 @@ void createNewAccount() {
     char more = 'Y';
     while (toupper(more) == 'Y') {
         std::string input;
-        std::cout << "\nEnter Service ID or Name: ";
+        std::cout << "\nEnter Service ID: ";
         std::getline(std::cin, input);
 
+        sID = input;
+
         sqlite3_open("providers.db", &db);
-        std::string query = "SELECT service FROM providers WHERE providerID = ? OR service LIKE ? OR name LIKE ?";
+        std::string query = "SELECT service FROM providers WHERE providerID = ?";
         sqlite3_prepare_v2(db, query.c_str(), -1, &stmt, nullptr);
+        sqlite3_bind_text(stmt, 1, input.c_str(), -1, SQLITE_TRANSIENT);
+        
 
         try {
             int id = std::stoi(input);
@@ -104,6 +111,7 @@ void createNewAccount() {
         if (sqlite3_step(stmt) == SQLITE_ROW) {
             std::string matched = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
             selectedServices.push_back(matched);
+            selectedProviderIDs.push_back(sID); 
             std::cout << "Service Added: " << matched << "\n";
         } else {
             std::cout << "Invalid Service. Try again.\n";
@@ -122,6 +130,12 @@ void createNewAccount() {
         serviceType += selectedServices[i];
         if (i < selectedServices.size() - 1) serviceType += "_";
     }
+
+    //get user email
+    string email;
+    cout << "Enter email (uwin email): ";
+    getline(cin,email);
+
 
     std::cout << "Enter PIN: ";
     std::getline(std::cin, pin);
@@ -146,5 +160,36 @@ void createNewAccount() {
     }
 
     sqlite3_close(db);
+
+    
+    //add the userid with providerid in user_provider table:
+    //open a new database connection for `user_providers`.
+    sqlite3* userProvidersDB;
+    sqlite3_open("users.db", &userProvidersDB);
+
+    //insert into user_provider table
+    std::string insertQuery = "INSERT INTO user_provider (uID, pID, uEmail) VALUES (?, ?, ?);";
+    sqlite3_stmt* insertStmt;
+
+
+    if (sqlite3_prepare_v2(userProvidersDB, insertQuery.c_str(), -1, &insertStmt, nullptr) == SQLITE_OK) {
+        //bind userID
+        sqlite3_bind_int(insertStmt, 1, userID);   
+        //bind provider id           
+        sqlite3_bind_text(insertStmt, 2, sID.c_str(), -1, SQLITE_TRANSIENT);  
+        //bind email
+        sqlite3_bind_text(insertStmt, 3, email.c_str(), -1, SQLITE_TRANSIENT);  
+
+        if (sqlite3_step(insertStmt) == SQLITE_DONE) {
+            std::cout << "Provider successfully linked to User ID: " << userID << "\n";
+        } else {
+            std::cout << "Failed to add Provider to the database.\n";
+        }
+        sqlite3_finalize(insertStmt);
+    } else {
+        std::cout << "Failed to prepare database statement: " << sqlite3_errmsg(userProvidersDB) << "\n";
+    }
+    sqlite3_close(userProvidersDB);
+
 }
 

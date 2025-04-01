@@ -2,6 +2,8 @@
 #include <iostream>
 #include <fstream>
 #include <sqlite3.h>
+#include <ctime> //time
+#include <iomanip> // For formatting date
 
 Bill::Bill(int billID, int userID, std::string serviceType, double amount, bool isPaid)
     : billID(billID), userID(userID), serviceType(serviceType), amount(amount), isPaid(isPaid) {}
@@ -19,12 +21,14 @@ void Bill::displayBill() const {
               << "\nStatus: " << (isPaid ? "Paid" : "Unpaid") << "\n";
 }
 
-// Generate a new bill and save it in bills.db
+
+
 bool BillingSystem::generateBill(int userID, const std::string& serviceType, double amount) {
     sqlite3* db;
     sqlite3_open("bills.db", &db);
 
-    std::string checkSQL = "SELECT COUNT(*) FROM bills WHERE userID = ? AND serviceType = ? AND status = 'UNPAID';";
+    // Check for existing unpaid bills of the same type
+    std::string checkSQL = "SELECT COUNT(*) FROM bills WHERE userID = ? AND service = ? AND status = 'UNPAID';";
     sqlite3_stmt* checkStmt;
     sqlite3_prepare_v2(db, checkSQL.c_str(), -1, &checkStmt, nullptr);
     sqlite3_bind_int(checkStmt, 1, userID);
@@ -38,25 +42,36 @@ bool BillingSystem::generateBill(int userID, const std::string& serviceType, dou
     sqlite3_finalize(checkStmt);
 
     if (hasUnpaid) {
+        std::cout << "Error: User already has an unpaid bill for this service.\n";
         sqlite3_close(db);
         return false;
     }
+
     if (amount <= 0.0) {
         std::cout << "Error: Bill amount must be greater than $0.00.\n";
         sqlite3_close(db);
-        //return 0;
+        return false;
     }
 
-    std::string insertSQL = "INSERT INTO bills (userID, service, amount, status) VALUES (?, ?, ?, 'UNPAID');";
+    // Get current date in YYYY-MM-DD format
+    std::time_t now = std::time(nullptr);
+    std::tm* now_tm = std::localtime(&now);
+    char dateStr[11]; // Enough for YYYY-MM-DD + null terminator
+    std::strftime(dateStr, sizeof(dateStr), "%Y-%m-%d", now_tm);
+    std::string currentDate(dateStr);
+
+    // Insert bill with current date
+    std::string insertSQL = "INSERT INTO bills (userID, service, amount, status, date) VALUES (?, ?, ?, 'UNPAID', ?);";
     sqlite3_stmt* stmt;
     sqlite3_prepare_v2(db, insertSQL.c_str(), -1, &stmt, nullptr);
     sqlite3_bind_int(stmt, 1, userID);
     sqlite3_bind_text(stmt, 2, serviceType.c_str(), -1, SQLITE_TRANSIENT);
     sqlite3_bind_double(stmt, 3, amount);
+    sqlite3_bind_text(stmt, 4, currentDate.c_str(), -1, SQLITE_TRANSIENT);
 
     bool success = (sqlite3_step(stmt) == SQLITE_DONE);
     if (success)
-        std::cout << "Bill generated successfully!\n";
+        std::cout << "Bill generated successfully on " << currentDate << "!\n";
     else
         std::cerr << "Failed to generate bill.\n";
 

@@ -36,3 +36,36 @@ bool Auth::authenticate(int userID, const std::string& pin) {
 
     return isAuthenticated;
 }
+
+//validate service provider login:
+bool Auth::authenticateProvider(int providerID, const std::string& pin) {
+    sqlite3* db;
+    sqlite3_open("providers.db", &db);
+
+    //update query for provider
+    std::string sql = "SELECT providerID, pin FROM providers WHERE providerID = ?;";
+    sqlite3_stmt* stmt;
+    sqlite3_prepare_v2(db, sql.c_str(), -1, &stmt, nullptr);
+    sqlite3_bind_int(stmt, 1, providerID);
+
+    bool isAuthenticated = false;
+
+    if (sqlite3_step(stmt) == SQLITE_ROW) {
+        //index is at 1 since there will be 2 attributes being fetched
+        std::string storedPin = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1)); 
+
+        if (storedPin == pin) {
+            Log::record("Provider " + std::to_string(providerID) + " logged in.");
+            isAuthenticated = true;
+        } else {
+            Log::record("Failed login: Incorrect PIN for Provider " + std::to_string(providerID));
+        }
+    } else {
+        Log::record("Failed login: Provider " + std::to_string(providerID) + " not found.");
+    }
+
+    sqlite3_finalize(stmt);
+    sqlite3_close(db);
+
+    return isAuthenticated;
+}

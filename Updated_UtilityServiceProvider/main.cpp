@@ -23,7 +23,7 @@ int main() {
 //            std::cout << "Enter your choice: ";
             std::cin >> choice;
 
-            if (choice >= 1 && choice <= 4) break;
+            if (choice >= 1 && choice <= 5) break;
             std::cout << "Invalid input. Please try again.\n";
         }
 
@@ -32,19 +32,23 @@ int main() {
                 loginUser();
                 break;
             case 2:
-                createNewAccount();
+                //show user and service provider options
+                createNewAccountMenu();
                 break;
             case 3:
                 adminLogin();
                 break;
             case 4:
+                //service provider login
+                loginServiceProvider();
+            case 5:
                 std::cout << "Exiting the system. Goodbye!\n";
                 break;
             default:
                 std::cout << "Invalid choice, try again!\n";
         }
 
-    } while (choice != 4);
+    } while (choice != 5);
 
     return 0;
 }

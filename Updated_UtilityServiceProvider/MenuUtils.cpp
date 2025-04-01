@@ -1,12 +1,18 @@
 #include <iostream>
 #include "MenuUtils.h"
+//creating accounts:
+#include "CreateAccount.h"
+#include "servicesProvider.h"
+
+using namespace std;
 
 void displayMainMenu() {
     std::cout << "\n===== Utility Service Provider System =====\n";
     std::cout << "1. Existing User Login\n";
     std::cout << "2. Create New Account\n";
     std::cout << "3. Admin Login\n";
-    std::cout << "4. Exit\n";
+         cout << "4. Service Provider Login\n"; //added service provider login option
+    std::cout << "5. Exit\n";
     std::cout << "Enter your choice: ";
 }
 
@@ -44,4 +50,39 @@ void pressEnterToContinue() {
     std::cin.ignore();
     std::cin.get();
 }
+
+//Give the user the option to create an account Service or Customer
+void displayCreateAccount() {
+        std::cout << "\n===== Create New Account =====\n";
+        std::cout << "1. Create User Account\n";
+        std::cout << "2. Create Service Provider\n";
+        std::cout << "3. Back to Main Menu\n";
+        std::cout << "Enter your choice: ";       
+}
+
+void createNewAccountMenu() {
+    int accountChoice;
+
+    do {
+        displayCreateAccount();
+        std::cin >> accountChoice;
+
+        switch (accountChoice) {
+            case 1:
+            //create user account
+                createNewAccount(); 
+                break;
+            case 2:
+            //create service provider account
+                createServiceProviderAccount();
+                break;
+            case 3:
+                std::cout << "Returning to Main Menu...\n";
+                return;
+            default:
+                std::cout << "Invalid choice. Please try again.\n";
+        }
+    } while (accountChoice != 3);
+}
+
 
