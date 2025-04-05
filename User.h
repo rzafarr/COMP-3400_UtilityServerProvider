@@ -10,18 +10,21 @@ protected:
     std::string address;
     std::string serviceType;
     std::string pin;
+    std::string email;
     int failedAttempts = 0;
     bool isLocked = false;
 
 public:
-    User(int id, std::string name, std::string address, std::string serviceType, std::string pin);
+    User(int id, std::string name, std::string address, std::string serviceType, std::string pin, std::string email);
 
-    
+
     int getUserID() const;
     std::string getName() const;
     std::string getAddress() const;
     std::string getServiceType() const;
     std::string getPin() const;
+    std::string getEmail() const;
+
     void setPin(const std::string& newPin);
     void setServiceType(const std::string& newService);
 
@@ -36,6 +39,8 @@ public:
     void unlockAccount();
     bool saveToDatabase(const std::string& dbPath);
     bool loadFromDatabase(int id, const std::string& dbPath);
+   // const std::string& getEmail() const { return email;}
+
 
 };
 

@@ -20,12 +20,14 @@ void adminDashboard() {
         std::cout << "Enter your choice: ";
         std::cin >> choice;
 
+        //create an instance 
+        Admin admin;
         switch (choice) {
             case 1:
-                Admin::viewAllUsers();
+               admin.viewAllUsers();
                 break;
             case 2:
-                Admin::viewPaidUnpaidBills();
+                admin.viewPaidUnpaidBills();
                 break;
             case 3: {
                 int billID;
@@ -34,14 +36,14 @@ void adminDashboard() {
                 std::cin >> billID;
                 std::cout << "Enter Discount Percentage (e.g., 15 for 15%): ";
                 std::cin >> discount;
-                Admin::applyDiscountToBill(billID, discount);
+                admin.applyDiscountToBill(billID, discount);
                 break;
             }
             case 4:
-                Admin::lockUserAccount();
+                admin.lockUserAccount();
                 break;
             case 5:
-                Admin::resetUserPin();
+                admin.resetUserPin();
                 break;
             case 6:
                 Log::viewLogs("logs.db");

@@ -1,12 +1,18 @@
 #include <iostream>
 #include "MenuUtils.h"
+//creating accounts:
+#include "CreateAccount.h"
+#include "servicesProvider.h"
+
+using namespace std;
 
 void displayMainMenu() {
     std::cout << "\n===== Utility Service Provider System =====\n";
     std::cout << "1. Existing User Login\n";
     std::cout << "2. Create New Account\n";
     std::cout << "3. Admin Login\n";
-    std::cout << "4. Exit\n";
+         cout << "4. Service Provider Login\n"; //added service provider login option
+    std::cout << "5. Exit\n";
     std::cout << "Enter your choice: ";
 }
 
@@ -39,9 +45,23 @@ void displayBillingMenu() {
     std::cout << "Enter choice: ";
 }
 
+//Give the user the option to create an account Service or Customer
+void displayCreateAccount() {
+    std::cout << "\n===== Create New Account =====\n";
+    std::cout << "1. Create User Account\n";
+    std::cout << "2. Create Service Provider\n";
+    std::cout << "3. Back to Main Menu\n";
+    std::cout << "Enter your choice: ";       
+}
+
 void pressEnterToContinue() {
     std::cout << "\nPress ENTER to continue...";
     std::cin.ignore();
     std::cin.get();
 }
+
+
+
+
+
 

@@ -13,7 +13,7 @@ std::vector<User> Database::loadUsers() {
         return users;
     }
 
-    std::string sql = "SELECT userID, name, address, serviceType, pin FROM users;";
+    std::string sql = "SELECT userID, name, address, serviceType, pin, email FROM users;";
     sqlite3_stmt* stmt;
 
     if (sqlite3_prepare_v2(db, sql.c_str(), -1, &stmt, nullptr) == SQLITE_OK) {
@@ -23,8 +23,9 @@ std::vector<User> Database::loadUsers() {
             std::string address = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 2));
             std::string service = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 3));
             std::string pin = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 4));
+            std::string email = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 5));
 
-            users.emplace_back(userID, name, address, service, pin);
+            users.emplace_back(userID, name, address, service, pin, email);
         }
         sqlite3_finalize(stmt);
     } else {
@@ -103,5 +104,25 @@ void Database::resetPin() {
     }
     sqlite3_finalize(stmt);
     sqlite3_close(db);
+}
+
+bool doesUserIDExist(sqlite3* db, int userID) {
+    sqlite3_stmt* stmt;
+    const char* sql = "SELECT COUNT(*) FROM users WHERE userID = ?;";
+
+    if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
+        std::cerr << "Error: " << sqlite3_errmsg(db) << std::endl;
+        return false;
+    }
+
+    sqlite3_bind_int(stmt, 1, userID);
+    bool exists = false;
+
+    if (sqlite3_step(stmt) == SQLITE_ROW) {
+        exists = sqlite3_column_int(stmt, 0) > 0;
+    }
+
+    sqlite3_finalize(stmt);
+    return exists;
 }
 
