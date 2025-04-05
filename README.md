@@ -19,7 +19,7 @@ Members: Roshna, Yosra, Maha
 **Installation**
 
 - Use g++ to compile the files:
-  - **g++ -std=c++23 -o main main.cpp Database.cpp Auth.cpp User.cpp Log.cpp Admin.cpp Bills.cpp servicesProvider.cpp CreateAccount.cpp AdminMenu.cpp UserMenu.cpp ServiceDisplay.cpp MenuUtils.cpp sqlite3.o -I.**
+  - **g++ -std=c++23 -o main main.cpp Database.cpp Auth.cpp User.cpp Log.cpp Admin.cpp Bills.cpp servicesProvider.cpp CreateAccount.cpp AdminMenu.cpp UserMenu.cpp ServiceDisplay.cpp MenuUtils.cpp UserDashboard.cpp LoginHandler.cpp PINUtils.cpp sqlite3.o -I.**
   - **./main**
 
 - Clone the Reposity
